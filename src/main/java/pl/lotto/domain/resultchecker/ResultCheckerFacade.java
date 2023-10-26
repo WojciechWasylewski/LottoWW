@@ -1,2 +1,3 @@
-package pl.lotto.domain.resultchecker;public class ResultCheckerFacade {
+package pl.lotto.domain.resultchecker;
+public class ResultCheckerFacade {
 }

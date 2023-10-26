@@ -1,2 +1,3 @@
-package pl.lotto.domain.resultannouncer;public class ResultAnnouncerFacade {
+package pl.lotto.domain.resultannouncer;
+public class ResultAnnouncerFacade {
 }

@@ -1,2 +1,4 @@
-package pl.lotto.domain.numbergenerator;public class NumberGeneratorFacade {
+package pl.lotto.domain.numbergenerator;
+public class NumberGeneratorFacade {
+
 }
