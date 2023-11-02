@@ -5,11 +5,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import pl.lotto.BaseIntegrationTest;
-import pl.lotto.domain.numbergenerator.RandomNumberGenerable;
+import pl.lotto.domain.numbergenerator.WinningNumbersGeneratorFacade;
+import pl.lotto.domain.numbergenerator.WinningNumbersNotFoundException;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+import static org.awaitility.Awaitility.await;
 
 public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
     @Autowired
-    RandomNumberGenerable randomNumberGenerable;
+    public WinningNumbersGeneratorFacade winningNumbersGeneratorFacade;
+
 
     @Test
     public void should_user_win_and_system_should_generate_winners() {
@@ -24,8 +31,24 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
                                 [1, 2, 3, 4, 5, 6, 82, 82, 83, 83, 86, 57, 10, 81, 53, 93, 50, 54, 31, 88, 15, 43, 79, 32, 43]
                                           """.trim()
                         )));
+//    step 3: system fetched winning numbers for draw date: 19.11.2022 12:00
+        // given
+        LocalDateTime drawDate = LocalDateTime.of(2022, 11, 19, 12, 0, 0);
+        // when
+        await()
+                .atMost(Duration.ofSeconds(20))
+                .pollInterval(Duration.ofSeconds(1))
+                .until(() -> {
+                            try {
+                                return !winningNumbersGeneratorFacade.retrieveWinningNumberByDate(drawDate).getWinningNumbers().isEmpty();
+                            } catch (WinningNumbersNotFoundException e) {
+                                return false;
+                            }
+                        }
+
+                );
+        // then
 //    step 2: user made POST /inputNumbers with 6 numbers (1, 2, 3, 4, 5, 6) at 01-11-2023 10:00 and system returned OK(200) with message: “success” and Ticket (DrawDate:01.11.2023 12:00 (Saturday), TicketId: sampleTicketId)
-//    step 3: system fetched winning numbers for draw date: 03.11.2023 12:00
 //    step 4: 3 days and 1 minute passed, and it is 1 minute after the draw date (03.11.2023 12:01)
 //    step 5: system generated result for TicketId: sampleTicketId with draw date 03.11.2023 12:00, and saved it with 6 hits
 //    step 6: 3 hours passed, and it is 1 minute after announcement time (03.11.2023 15:01)
