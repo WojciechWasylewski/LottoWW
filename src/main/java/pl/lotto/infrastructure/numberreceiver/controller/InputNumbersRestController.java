@@ -25,4 +25,5 @@ public class InputNumbersRestController {
         return ResponseEntity.ok(numberReceiverResponseDto);
     }
 
+
 }

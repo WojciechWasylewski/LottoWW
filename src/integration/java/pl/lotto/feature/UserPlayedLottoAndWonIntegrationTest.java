@@ -17,7 +17,10 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertAll;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
@@ -71,9 +74,25 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
         assertAll(
                 () -> assertThat(response.ticketDto().drawDate()).isEqualTo(drawDate),
                 () -> assertThat(response.ticketDto().hash()).isNotNull(),
-                () -> assertThat(response.message()).isEqualTo("SUCCES")
+                () -> assertThat(response.message()).isEqualTo("SUCCESS")
         );
+
+
+        //step 4: User made GET /results/notExistingId and system returned 404 NOT FOUND and body (message: Id: notExistingId does not exist and status NOT_FOUND)
+        //given
+        //when
+        ResultActions resultWithNonExistingId = mockMvc.perform(get("/results/" + "notExistingId"));
         //then
+        resultWithNonExistingId.andExpect(status().isNotFound())
+                .andExpect(content().json("""
+                        {
+                        "message": "Not found for id: notExistingId",
+                        "status": "NOT_FOUND"
+                        }
+                        """.trim()
+                ));
+
+
         //step 4: 3 days and 1 minute passed, and it is 1 minute after the draw date (19.11.2022 12:01)
         clock.plusDaysAndMinutes(3, 1);
         //step 5: system generated result for TicketId: sampleTicketId with draw date 19.11.2022 12:00, and saved it with 6 hits
