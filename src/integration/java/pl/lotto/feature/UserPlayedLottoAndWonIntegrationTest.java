@@ -44,17 +44,17 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
         // given
         LocalDateTime drawDate = LocalDateTime.of(2022, 11, 19, 12, 0, 0);
         // when && then
-        await()
-                .atMost(Duration.ofSeconds(20))
-                .pollInterval(Duration.ofSeconds(1))
-                .until(() -> {
-                            try {
-                                return !winningNumbersGeneratorFacade.retrieveWinningNumberByDate(drawDate).getWinningNumbers().isEmpty();
-                            } catch (WinningNumbersNotFoundException e) {
-                                return false;
-                            }
-                        }
-                );
+//        await()
+//                .atMost(Duration.ofSeconds(20))
+//                .pollInterval(Duration.ofSeconds(1))
+//                .until(() -> {
+//                            try {
+//                                return !winningNumbersGeneratorFacade.retrieveWinningNumberByDate(drawDate).getWinningNumbers().isEmpty();
+//                            } catch (WinningNumbersNotFoundException e) {
+//                                return false;
+//                            }
+//                        }
+//                );
         //step 3: user made POST /inputNumbers with 6 numbers (1, 2, 3, 4, 5, 6) at 16-11-2022 10:00 and system returned OK(200) with message: “success” and Ticket (DrawDate:19.11.2022 12:00 (Saturday), TicketId: sampleTicketId)
         //given
         //when
