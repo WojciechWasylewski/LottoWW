@@ -10,6 +10,8 @@ spring:
 lotto:
   number-generator:
     lotteryRunOccurrence: "0 0 12 * * 6"
+  result-checker:
+    lotteryRunOccurrence: "0 55 11 * * 6"
     facade:
       count: 25
       lowerBand: 1

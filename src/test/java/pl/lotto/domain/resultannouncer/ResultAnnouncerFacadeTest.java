@@ -34,7 +34,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawDate)
                 .isWinner(false)
                 .build();
-        when(resultCheckerFacade.findByHash(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findByTicketId(hash)).thenReturn(resultDto);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -63,7 +63,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawDate)
                 .isWinner(true)
                 .build();
-        when(resultCheckerFacade.findByHash(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findByTicketId(hash)).thenReturn(resultDto);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -93,7 +93,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawDate)
                 .isWinner(true)
                 .build();
-        when(resultCheckerFacade.findByHash(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findByTicketId(hash)).thenReturn(resultDto);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -115,7 +115,7 @@ class ResultAnnouncerFacadeTest {
         String hash = "123";
         ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().resultAnnouncerFacade(resultCheckerFacade, responseRepository, Clock.systemUTC());
 
-        when(resultCheckerFacade.findByHash(hash)).thenReturn(null);
+        when(resultCheckerFacade.findByTicketId(hash)).thenReturn(null);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -135,7 +135,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawDate)
                 .isWinner(true)
                 .build();
-        when(resultCheckerFacade.findByHash(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findByTicketId(hash)).thenReturn(resultDto);
 
         ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().resultAnnouncerFacade(resultCheckerFacade, responseRepository, Clock.systemUTC());
         ResultAnnouncerResponseDto resultAnnouncerResponseDto1 = resultAnnouncerFacade.checkResult(hash);

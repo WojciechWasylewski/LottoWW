@@ -136,7 +136,7 @@ class ResultCheckerFacadeTest {
         resultCheckerFacade.generateWinners();
         //when
 
-        ResultDto resultDto = resultCheckerFacade.findByHash(hash);
+        ResultDto resultDto = resultCheckerFacade.findByTicketId(hash);
         //then
         ResultDto expectedResult = ResultDto.builder()
                 .hash(hash)

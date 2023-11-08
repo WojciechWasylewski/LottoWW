@@ -39,10 +39,10 @@ public class ResultCheckerFacade {
                 .build();
     }
 
-    public ResultDto findByHash(String hash) {
-        Player player = playerRepository.findById(hash).orElseThrow(() -> new PlayerResultNotFoundException("Not found for id: " + hash));
+    public ResultDto findByTicketId(String ticketId) {
+        Player player = playerRepository.findById(ticketId).orElseThrow(() -> new PlayerResultNotFoundException("Not found for id: " + ticketId));
         return ResultDto.builder()
-                .hash(hash)
+                .hash(ticketId)
                 .numbers(player.numbers())
                 .hitNumbers(player.hitNumbers())
                 .drawDate(player.drawDate())
